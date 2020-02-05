@@ -13,7 +13,7 @@ library(tidyverse)
 library(tidyquant)
 library(highcharter)
 library(googleVis)
-etfs <- read.csv(file = "/Users/YunseonLee/Downloads/etfs.csv")
+etfs <- read.csv(file = "/Users/YunseonLee/Desktop/NYCDSA_Proj/etf_shiny/etfs.csv")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
