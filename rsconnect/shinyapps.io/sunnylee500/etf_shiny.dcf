@@ -1,0 +1,12 @@
+name: etf_shiny
+title: etf_shiny
+username:
+account: sunnylee500
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1778380
+bundleId: 2876011
+url: https://sunnylee500.shinyapps.io/etf_shiny/
+when: 1584043700.75254
+asMultiple: FALSE
+asStatic: FALSE

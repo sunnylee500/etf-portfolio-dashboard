@@ -13,7 +13,7 @@ library(tidyverse)
 library(tidyquant)
 library(highcharter)
 library(googleVis)
-etfs <- read.csv(file = "/Users/YunseonLee/Desktop/NYCDSA_Proj/etf_shiny/etfs.csv")
+etfs <- read.csv(file = "etfs.csv")
 
 shinyUI(fluidPage(
     tags$head(tags$style(
@@ -81,7 +81,6 @@ shinyUI(fluidPage(
             tabPanel("Portfolio Dashboard", 
                 tags$div(
                     tags$br(),
-                    tags$br(),
                     tags$h3("Portfolio Dashboard"),
                     tags$hr(),
                     tags$br()
@@ -98,11 +97,11 @@ shinyUI(fluidPage(
                     splitLayout(cellWidths = c("50%", "50%"),
                                 tags$div(align="center",
                                          tags$h3("Current Portfolio"),
-                                         tags$hr(),
+                                         tags$hr(width="75%"),
                                          tags$br()),
                                 tags$div(align="center",
                                          tags$h3("Comparative Portfolio"),
-                                         tags$hr(),
+                                         tags$hr(width="75%"),
                                          tags$br())
                     )
                 ),
@@ -145,13 +144,32 @@ shinyUI(fluidPage(
             
             tabPanel("Top 100 ETFs",
                 fluidRow(
-                    tags$div(
+                    tags$div(align="center",
+                        tags$br(),
                         tags$h3("Largest ETFs: Top 100 ETFs By Assets"),
                         tags$br())
                 ),
-                fluidRow(
+                fluidRow(align="center",
                     tableOutput("top100_etf")
-                ))
+                )),
+            
+            tabPanel("About Me",
+                     fluidRow(
+                         tags$div(align="left",
+                                  tags$br(),
+                                  tags$h3("About Me"),
+                                  tags$br(),
+                                  tags$blockquote("Sunny graduated from 
+                                    Northwestern University with a double major in Economics and Statistics. 
+                                    She joined Goldman Sachs as a Sales Analyst in 2015 and took subsequent 
+                                    roles at the firm as a Fixed Income Trader and as a Short Duration Portfolio 
+                                    Constructionist. Currently, Sunny is a Data Science Fellow at NYC Data Science Academy."),
+                                  tags$br(),
+                                  tags$a(href="https://www.linkedin.com/in/sunnylee500/","View Sunny's LinkedIn"),
+                                  tags$br(), 
+                                  tags$a(href="https://github.com/sunnylee500/etf-portfolio-dashboard", "View Sunny's GitHub")
+                                  ))
+                     )
             )),
                 
         column(1)

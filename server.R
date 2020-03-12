@@ -13,7 +13,7 @@ library(tidyverse)
 library(tidyquant)
 library(highcharter)
 library(googleVis)
-etfs <- read.csv(file = "/Users/YunseonLee/Desktop/NYCDSA_Proj/etf_shiny/etfs.csv")
+etfs <- read.csv(file = "etfs.csv")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -160,10 +160,6 @@ shinyServer(function(input, output, session) {
     #Table of asset class and weight
     asset_table <- reactive({
         if(input$submit > 0){
-            # vt <- isolate(vtickers())
-            # etf_assets <- etfs%>%filter(Symbol%in%vt)%>%group_by(L2_Asset_Class)%>%
-            #     summarise(n=n())%>%mutate(ratio=n/sum(n))%>%select(L2_Asset_Class,ratio)
-            # etf_assets
             ar <- joined_rr_etfinfo()
             etf_assets <- ar%>%group_by(L2_Asset_Class)%>%summarise(totalweight=sum(Weights))%>%
                 select(L2_Asset_Class,totalweight)
@@ -173,10 +169,6 @@ shinyServer(function(input, output, session) {
     
     asset_table_new <- reactive({
         if(input$submit > 0){
-            # vt <- isolate(vtickers_new())
-            # etf_assets <- etfs%>%filter(Symbol%in%vt)%>%group_by(L2_Asset_Class)%>%
-            #     summarise(n=n())%>%mutate(ratio=n/sum(n))%>%select(L2_Asset_Class,ratio)
-            # etf_assets
             ar <- joined_rr_etfinfo_new()
             etf_assets <- ar%>%group_by(L2_Asset_Class)%>%summarise(totalweight=sum(Weights))%>%
                 select(L2_Asset_Class,totalweight)
@@ -186,22 +178,12 @@ shinyServer(function(input, output, session) {
     
     #Table of asset class and risk contribution
     asset_risk <- reactive({
-        # req(input$tickers)
-        # req(input$weights)
-        # rrtibble <- riskreturn()
-        # etf_info <- etf_names()
-        # ar <- left_join(rrtibble, etf_info, by=c("Tickers"="Symbol"))
         ar <- joined_rr_etfinfo()
         ar_table <- ar%>%group_by(L2_Asset_Class)%>%summarise(risk_byasset = sum(Risk))
         ar_table
     })
     
     asset_risk_new <- reactive({
-        # req(input$tickers_new)
-        # req(input$weights_new)
-        # rrtibble <- riskreturn_new()
-        # etf_info <- etf_names_new()
-        # ar <- left_join(rrtibble, etf_info, by=c("Tickers"="Symbol"))
         ar <- joined_rr_etfinfo_new()
         ar_table <- ar%>%group_by(L2_Asset_Class)%>%summarise(risk_byasset = sum(Risk))
         ar_table
@@ -229,10 +211,7 @@ shinyServer(function(input, output, session) {
     })
     
     ################################################################
-    # output$tickerlist <- renderPrint({
-    #     req(input$tickers)
-    #     vtickers()
-    # })
+
     
     output$weightlist <- renderText({
         validate(need(input$tickers, "Please select tickers"),
